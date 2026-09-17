@@ -1,0 +1,215 @@
+/* Livery - your wallpaper as Zen's window background, tinted in its own
+ * colours, plus a few toolbar and address-bar refinements. Every tweak has its
+ * own switch in Settings > Zen Mods > Livery; Zen's defaults are left alone
+ * for anything not named here.
+ *
+ * Written against Zen 1.22 (Gecko 156). Selectors come from Zen's own
+ * stylesheets (zen-compact-mode.css, zen-omnibox.css, zen-browser-ui.css,
+ * zen-tabs.css). Mods load as a user-origin stylesheet, so every declaration
+ * that overrides Zen carries !important - same as userChrome.css.
+ *
+ * The palette file below is written by Wingman (wingman.py, in this repo) into
+ * the profile's chrome folder, next to Zen's merged mods stylesheet, which is
+ * why a relative @import finds it on every OS. It defines, on :root:
+ *   --livery-wallpaper     url("livery-wallpaper.jpg?v=...")  the image
+ *   --livery-accent        #rrggbb   most vivid colour with real coverage
+ *   --livery-palette-0..2  #rrggbb   accent + two more, 40+ degrees of hue apart
+ *   --livery-dominant      #rrggbb   the image's most common colour
+ * Without the file the import fails silently and everything falls back to
+ * Zen's own gradient and theme colour. @import has to be the first rule of a
+ * stylesheet, so Livery must be the first (or only) enabled mod. */
+@import url("livery-palette.css");
+
+/* ========================================================================= */
+/* Wallpaper                                                                 */
+/* ========================================================================= */
+
+/* Zen paints the workspace gradient on .zen-browser-generic-background via
+ * two pseudo-elements: ::before (previous gradient, fading out) and ::after
+ * (current gradient, fading in). Livery repurposes them: ::before carries the
+ * blurred wallpaper, ::after becomes the scrim + tint. A pseudo-element is a
+ * child, so the element's overflow: clip / contain: content clip the oversized
+ * blurred image and no transparent fringe shows at the edges. Web content
+ * paints over all of this; an empty tab shows it.
+ *
+ * Image source, first match wins:
+ *   1. the "Wallpaper: image URL" field (string pref -> --livery-wallpaper-url)
+ *   2. --livery-wallpaper from Wingman's palette file
+ *   3. Zen's own gradient */
+@media (-moz-pref("livery.wallpaper.enabled")) {
+  .zen-browser-generic-background {
+    --livery-blur: var(--livery-wallpaper-blur, 14px);
+    --livery-dim: var(--livery-wallpaper-dim, 0.45);
+    --livery-image: var(--livery-wallpaper-url, var(--livery-wallpaper, var(--zen-main-browser-background-old)));
+
+    &::before {
+      inset: calc(-2 * var(--livery-blur)) !important;
+      background: var(--livery-image) center / cover no-repeat !important;
+      background-blend-mode: normal !important;
+      filter: blur(var(--livery-blur));
+      opacity: 1 !important;
+      transition: none !important;
+    }
+
+    &::after {
+      background: rgba(0, 0, 0, var(--livery-dim)) !important;
+      background-blend-mode: normal !important;
+      opacity: 1 !important;
+      transition: none !important;
+    }
+  }
+}
+
+/* Tint: a soft diagonal wash of two colours over the scrim. Colour source,
+ * first match wins:
+ *   1. the "Tint colour A / B" fields (string prefs -> --livery-tint-a / -b)
+ *   2. --livery-palette-0 / -1 from Wingman's palette file
+ *   3. Zen's theme colour (--zen-primary-color: the workspace gradient picker,
+ *      which on Windows follows the OS accent - and with "Accent colour:
+ *      Automatic" that is Windows' own wallpaper extraction, for free) */
+@media (-moz-pref("livery.wallpaper.enabled")) and (-moz-pref("livery.tint.enabled")) {
+  .zen-browser-generic-background {
+    --livery-colour-a: var(--livery-tint-a, var(--livery-palette-0, var(--zen-primary-color)));
+    --livery-colour-b: var(--livery-tint-b, var(--livery-palette-1, color-mix(in srgb, var(--zen-primary-color) 60%, black)));
+
+    &::after {
+      background:
+        linear-gradient(
+          135deg,
+          color-mix(in srgb, var(--livery-colour-a) 28%, transparent) 0%,
+          transparent 45%,
+          color-mix(in srgb, var(--livery-colour-b) 22%, transparent) 100%
+        ),
+        rgba(0, 0, 0, var(--livery-dim)) !important;
+    }
+  }
+}
+
+/* ========================================================================= */
+/* Bookmarks bar                                                             */
+/* ========================================================================= */
+
+/* Icons only; hovering a bookmark slides its title out. ease-out-quint on the
+ * width is what reads as smooth rather than snappy; the short hold on the way
+ * out stops a sweep across the strip flickering every title open and shut. */
+@media (-moz-pref("livery.bookmarks.titles-on-hover")) {
+  #personal-bookmarks #PlacesToolbarItems > .bookmark-item > .toolbarbutton-text {
+    max-width: 0 !important;
+    opacity: 0 !important;
+    overflow: hidden !important;
+    margin-inline-start: 0 !important;
+    white-space: nowrap !important;
+    transition:
+      max-width 0.5s cubic-bezier(0.22, 1, 0.36, 1) 0.06s,
+      opacity 0.35s ease 0.06s,
+      margin 0.5s cubic-bezier(0.22, 1, 0.36, 1) 0.06s !important;
+  }
+
+  #personal-bookmarks #PlacesToolbarItems > .bookmark-item:is(:hover, [open]) > .toolbarbutton-text {
+    max-width: 24ch !important;
+    opacity: 1 !important;
+    margin-inline-start: 6px !important;
+    transition:
+      max-width 0.42s cubic-bezier(0.22, 1, 0.36, 1),
+      opacity 0.28s ease,
+      margin 0.42s cubic-bezier(0.22, 1, 0.36, 1) !important;
+  }
+}
+
+/* Bookmarks that do not fit wrap onto a second row and the bar grows, instead
+ * of disappearing into Firefox's >> chevron menu. Caveat: the sidebar push in
+ * the Toolbar section is a fixed offset (CSS cannot read another box's
+ * height), so while a second row exists the sidebar's top 34px sit under it.
+ * With icon-only bookmarks a row holds ~55, so this rarely arises. */
+@media (-moz-pref("livery.bookmarks.wrap")) {
+  :root[zen-compact-mode="true"][zen-single-toolbar="true"] #zen-appcontent-navbar-wrapper:is(
+    [zen-has-hover], [has-popup-menu], [zen-compact-mode-active]
+  ),
+  :root[zen-compact-mode="true"][zen-single-toolbar="true"]:has(#navigator-toolbox[zen-has-empty-tab]) #zen-appcontent-navbar-wrapper {
+    height: auto !important;
+    min-height: var(--livery-topbar-height) !important;
+  }
+
+  #personal-bookmarks #PlacesToolbarItems {
+    flex-wrap: wrap !important;
+    row-gap: 2px !important;
+  }
+}
+
+/* ========================================================================= */
+/* Address bar                                                               */
+/* ========================================================================= */
+
+/* Zen: width: var(--zen-urlbar-width, min(90%, 62rem)) plus a min-width of
+ * the same expression, so both have to move. */
+#urlbar[open][zen-floating-urlbar="true"] {
+  --zen-urlbar-width: var(--livery-urlbar-width, 44rem);
+  min-width: min(90%, var(--livery-urlbar-width, 44rem)) !important;
+  width: min(90%, var(--livery-urlbar-width, 44rem)) !important;
+}
+
+/* ========================================================================= */
+/* Toolbar - single toolbar + compact mode only                              */
+/* ========================================================================= */
+
+/* Everything below is gated on [zen-single-toolbar="true"] and
+ * [zen-compact-mode="true"]: in any other layout these rules never match and
+ * Zen behaves exactly as it does without Livery.
+ *
+ * Height: Zen's compact-mode reveal uses --zen-toolbar-height-with-bookmarks,
+ * 38px + 30px, a multiple-toolbars number. In single-toolbar mode the bar is
+ * one row of 34px (zen-tabs.css), so the reveal opened an empty second row
+ * under the bookmarks. --livery-topbar-height pins the single-row value and
+ * every rule here uses it, so they agree. */
+:root {
+  --livery-topbar-height: 34px;
+}
+
+:root[zen-compact-mode="true"][zen-single-toolbar="true"] #zen-appcontent-navbar-wrapper:is([zen-has-hover], [has-popup-menu], [zen-compact-mode-active]) {
+  height: var(--livery-topbar-height) !important;
+}
+
+/* Zen reveals the *sidebar* on an empty tab but reveals the *toolbar* only on
+ * hover / open menu / the compact-mode-active flag. Mirror the declarations
+ * of Zen's own reveal rule under the empty-tab condition. */
+@media (-moz-pref("livery.toolbar.on-empty-tab")) {
+  :root[zen-compact-mode="true"][zen-single-toolbar="true"]:has(#navigator-toolbox[zen-has-empty-tab]) #zen-appcontent-navbar-wrapper {
+    height: var(--livery-topbar-height) !important;
+    overflow: inherit !important;
+
+    & .titlebar-buttonbox-container {
+      max-height: 100% !important;
+      transition: none !important;
+    }
+
+    & #urlbar {
+      opacity: 1 !important;
+      pointer-events: auto !important;
+    }
+
+    & #zen-appcontent-navbar-container {
+      opacity: 1 !important;
+    }
+  }
+}
+
+/* In single-toolbar compact mode the floating sidebar is full-height and
+ * slides in over the toolbar's left end, hiding the first bookmarks. Zen has
+ * the "sidebar below the toolbar" geometry for the non-hidden-toolbar case
+ * (margin-top + reduced height); apply it whenever the toolbar is actually
+ * showing, for whatever reason it is showing. */
+@media (-moz-pref("livery.toolbar.sidebar-below")) {
+  :root[zen-compact-mode="true"][zen-single-toolbar="true"]:is(
+    :has(#zen-appcontent-navbar-wrapper:is([zen-has-hover], [has-popup-menu], [zen-compact-mode-active])),
+    :has(#navigator-toolbox[zen-has-empty-tab])
+  ) #navigator-toolbox:not([animate="true"]) {
+    margin-top: var(--livery-topbar-height) !important;
+    height: calc(100% - var(--livery-topbar-height) - var(--zen-compact-float, 0px)) !important;
+    transition:
+      margin-top var(--zen-hidden-toolbar-transition, 0.2s ease),
+      height var(--zen-hidden-toolbar-transition, 0.2s ease),
+      left 0.15s ease,
+      right 0.15s ease,
+      visibility 0.15s ease !important;
+  }
+}

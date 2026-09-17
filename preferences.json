@@ -1,0 +1,77 @@
+[
+    {
+        "property": "livery.wallpaper.enabled",
+        "label": "Wallpaper: use my wallpaper as Zen's background (needs Wingman, or the URL below - see the readme)",
+        "type": "checkbox",
+        "defaultValue": true
+    },
+    {
+        "property": "livery.wallpaper.url",
+        "label": "Wallpaper: image URL (optional; leave empty if you use Wingman)",
+        "type": "string",
+        "placeholder": "url(\"file:///C:/Users/you/Pictures/wall.jpg\")"
+    },
+    {
+        "property": "livery.wallpaper.blur",
+        "label": "Wallpaper: blur (0px for sharp)",
+        "type": "string",
+        "defaultValue": "14px",
+        "placeholder": "14px"
+    },
+    {
+        "property": "livery.wallpaper.dim",
+        "label": "Wallpaper: darken, 0 = as is, 1 = black (raise it if text is hard to read)",
+        "type": "string",
+        "defaultValue": "0.45",
+        "placeholder": "0.45"
+    },
+    {
+        "property": "livery.tint.enabled",
+        "label": "Wallpaper: tint with matching colours (Wingman's palette, or Zen's theme colour)",
+        "type": "checkbox",
+        "defaultValue": true
+    },
+    {
+        "property": "livery.tint.a",
+        "label": "Wallpaper: tint colour A (optional hex, overrides the automatic pick)",
+        "type": "string",
+        "placeholder": "#2d95a9"
+    },
+    {
+        "property": "livery.tint.b",
+        "label": "Wallpaper: tint colour B (optional hex)",
+        "type": "string",
+        "placeholder": "#b52b21"
+    },
+    {
+        "property": "livery.bookmarks.titles-on-hover",
+        "label": "Bookmarks: icons only, show a title while hovering it",
+        "type": "checkbox",
+        "defaultValue": true
+    },
+    {
+        "property": "livery.bookmarks.wrap",
+        "label": "Bookmarks: wrap to a second row when the bar is full (instead of the >> menu)",
+        "type": "checkbox",
+        "defaultValue": true
+    },
+    {
+        "property": "livery.urlbar.width",
+        "label": "Address bar: popup width (44rem, 720px, 60%)",
+        "type": "string",
+        "defaultValue": "44rem",
+        "placeholder": "44rem"
+    },
+    {
+        "property": "livery.toolbar.on-empty-tab",
+        "label": "Toolbar: keep it visible while the tab is empty (single toolbar + compact mode only)",
+        "type": "checkbox",
+        "defaultValue": true
+    },
+    {
+        "property": "livery.toolbar.sidebar-below",
+        "label": "Toolbar: sidebar starts below it while it is showing (single toolbar + compact mode only)",
+        "type": "checkbox",
+        "defaultValue": true
+    }
+]
