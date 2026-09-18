@@ -1,14 +1,14 @@
 {
     "id": "540fa531-2e36-4f35-87c3-345f330c3bdb",
     "name": "Livery",
-    "description": "Your wallpaper as Zen's background, tinted in its own colours, plus toolbar and address-bar tweaks.",
+    "description": "Your wallpaper as Zen's background, tinted in its own colours; sidebar, toolbar, bookmarks-bar and address-bar tweaks.",
     "homepage": "https://github.com/ps-margin/livery",
     "style": "https://raw.githubusercontent.com/ps-margin/livery/main/chrome.css",
     "readme": "https://raw.githubusercontent.com/ps-margin/livery/main/README.md",
     "image": "https://raw.githubusercontent.com/ps-margin/livery/main/image.png",
     "preferences": "https://raw.githubusercontent.com/ps-margin/livery/main/preferences.json",
     "author": "ps-margin",
-    "version": "1.1.0",
+    "version": "1.2.0",
     "tags": [],
     "createdAt": "2026-09-17",
     "updatedAt": "2026-09-18"

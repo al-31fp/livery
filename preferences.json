@@ -15,15 +15,15 @@
         "property": "livery.wallpaper.blur",
         "label": "Wallpaper: blur (0px for sharp)",
         "type": "string",
-        "defaultValue": "14px",
-        "placeholder": "14px"
+        "defaultValue": "8px",
+        "placeholder": "8px"
     },
     {
         "property": "livery.wallpaper.dim",
         "label": "Wallpaper: darken, 0 = as is, 1 = black (raise it if text is hard to read)",
         "type": "string",
-        "defaultValue": "0.45",
-        "placeholder": "0.45"
+        "defaultValue": "0.35",
+        "placeholder": "0.35"
     },
     {
         "property": "livery.tint.enabled",
@@ -45,13 +45,13 @@
     },
     {
         "property": "livery.bookmarks.titles-on-hover",
-        "label": "Bookmarks: icons only, show a title while hovering it",
+        "label": "Bookmarks bar: icons only, show a title while hovering it",
         "type": "checkbox",
         "defaultValue": true
     },
     {
         "property": "livery.bookmarks.wrap",
-        "label": "Bookmarks: wrap to a second row when the bar is full (instead of the >> menu)",
+        "label": "Bookmarks bar: wrap to a second row when the bar is full (instead of the >> menu)",
         "type": "checkbox",
         "defaultValue": true
     },
@@ -64,13 +64,19 @@
     },
     {
         "property": "livery.toolbar.on-empty-tab",
-        "label": "Toolbar: keep it visible while the tab is empty (single toolbar + compact mode only)",
+        "label": "Toolbar: keep it visible while the tab is empty (compact mode with the toolbar hidden)",
         "type": "checkbox",
         "defaultValue": true
     },
     {
         "property": "livery.toolbar.sidebar-below",
-        "label": "Toolbar: sidebar starts below it while it is showing (single toolbar + compact mode only)",
+        "label": "Toolbar: sidebar starts below it while it is showing (compact mode with the toolbar hidden)",
+        "type": "checkbox",
+        "defaultValue": true
+    },
+    {
+        "property": "livery.sidebar.dock",
+        "label": "Sidebar: docked, not floating, on the empty tab and while the bookmarks panel (Ctrl+B) is open (compact mode with the sidebar hidden)",
         "type": "checkbox",
         "defaultValue": true
     },

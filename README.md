@@ -2,10 +2,11 @@
 
 ![Livery on Zen: a blurred F-14 wallpaper behind the sidebar and bookmarks bar](https://raw.githubusercontent.com/ps-margin/livery/main/image.png)
 
-Your wallpaper as Zen's window background, blurred and tinted in its own colours — plus a
-few small refinements to the bookmarks bar, the address bar and the compact-mode toolbar.
-Every one of them is a switch in **Settings → Zen Mods → Livery**. Zen's defaults are left
-alone for anything Livery doesn't name.
+Your wallpaper as Zen's window background, softly blurred and tinted in its own colours — plus
+a few small refinements to the bookmarks bar, the address bar and the compact-mode sidebar
+and toolbar. Every one of them is a switch in
+**Settings → Zen Mods → Livery**. Zen's defaults are left alone for anything Livery doesn't
+name.
 
 A livery is an aircraft's paint scheme. This one is yours.
 
@@ -14,26 +15,39 @@ A livery is an aircraft's paint scheme. This one is yours.
 | | Default |
 | --- | --- |
 | **Wallpaper** — your desktop image behind every empty tab and the sidebar, blurred and dimmed so text stays readable | on |
-| **Tint** — a soft wash of two colours pulled from the wallpaper (or from Zen's theme colour) | on |
-| **Bookmarks** — icons only; hovering one slides its title out | on |
-| **Bookmarks** — the bar wraps to a second row when full, instead of hiding items in the `»` menu | on |
+| **Tint** — Zen's own three-colour gradient recipe in colours pulled from the wallpaper (or from Zen's theme colour), laid faintly over it | on |
 | **Address bar** — the floating popup is narrower (`44rem`) | on |
-| **Toolbar** — stays visible while the tab is empty *(single toolbar + compact mode only)* | on |
-| **Toolbar** — the sidebar starts below it while it is showing, so no bookmark is hidden *(single toolbar + compact mode only)* | on |
+| **Toolbar** — stays visible while the tab is empty *(compact mode with the toolbar hidden)* | on |
+| **Toolbar** — the sidebar starts below it while it is showing, so nothing on it is covered *(compact mode with the toolbar hidden)* | on |
+| **Sidebar** — docked instead of floating on the empty tab and while the bookmarks panel (`Ctrl+B`) is open *(compact mode with the sidebar hidden)* | on |
+| **Bookmarks bar** — icons only; hovering one slides its title out | on |
+| **Bookmarks bar** — the bar wraps to a second row when full, instead of hiding items in the `»` menu | on |
 | **Context menu** — the page right-click menu cut down to a daily-use set (list below) | **off** |
 
-Icons only, until you hover one:
+## Sidebar — docked when it matters, floating otherwise
 
-![The bookmarks bar with one bookmark's title slid out on hover](https://raw.githubusercontent.com/ps-margin/livery/main/docs/bookmarks-hover.png)
+Compact mode with the sidebar hidden keeps the window clean, but the floating sidebar slides
+in over whatever sits at the left edge — and Firefox's bookmarks panel (`Ctrl+B`) sits exactly
+there, so every pass of the mouse covered it. Livery keeps the sidebar *docked* (the layout
+you get with compact mode off) in two situations and lets Zen float it the rest of the time:
+
+- **On the empty tab** — a new window, or Zen starting up. Type a URL and go, and the sidebar
+  floats again.
+- **While the bookmarks panel is open.** Open it with `Ctrl+B`, `Ctrl`-click or middle-click
+  the bookmarks you want as new tabs, `Ctrl+B` again, and the sidebar floats again. Zen
+  reopens the panel at startup if it was open when you quit.
+
+Compact mode itself is never toggled; the switch only changes how the sidebar is positioned.
 
 ## Requirements — read this one
 
 - **Written for Zen 1.22.** Later versions will probably work; if Zen renames something, the
   affected switch just stops having an effect (see Notes).
-- **The wallpaper, tint, bookmarks and address-bar tweaks work in every layout.**
-- **The two toolbar tweaks need "Single toolbar" layout and compact mode with the toolbar
-  hidden** (Settings → Look and Feel). In any other layout they do nothing at all — the rules
-  never match, nothing breaks, Zen behaves as it does without Livery.
+- **The wallpaper, tint, bookmarks-bar and address-bar tweaks work in every layout.**
+- **The two toolbar tweaks need compact mode with the toolbar hidden, the sidebar tweak
+  compact mode with the sidebar hidden** (Settings → Look and Feel), in either the
+  single-toolbar or the multiple-toolbars layout. In any other layout they do nothing at
+  all — the rules never match, nothing breaks, Zen behaves as it does without Livery.
 - **Livery should be the first enabled mod in your list** (or the only one). It reads the
   palette file with an `@import`, which CSS only honours at the top of a stylesheet; Zen
   merges enabled mods in order.
@@ -105,7 +119,7 @@ theme colour (below) unless you fill in the two tint colour fields.
 
 ### 3. Nothing
 
-Turn **Wallpaper** off. The bookmarks, address-bar and toolbar tweaks work on their own.
+Turn **Wallpaper** off. The bookmarks, address-bar, sidebar and toolbar tweaks work on their own.
 
 ## Colours — where the tint comes from
 
@@ -119,14 +133,24 @@ First match wins:
    accent colour — so on Windows with *Accent colour: Automatic*, the tint follows your
    wallpaper with no help at all.
 
+How they are laid on: the same shape Zen's theme picker draws for a three-colour theme
+(`ZenGradientGenerator.mjs`) — colour A as a soft glow from the top-left corner, colour B
+from the bottom-right, the third palette colour as a shallow diagonal wash between them —
+but at a fraction of Zen's opacity, over a light darkening scrim, so the wallpaper keeps its
+own colours and only leans toward the palette at the corners.
+
 ## Settings reference
 
 | Setting | Notes |
 | --- | --- |
-| Wallpaper: blur | CSS length. `0px` for sharp, `14px` default, `24px` is very soft |
-| Wallpaper: darken | `0` = the image as is, `1` = black. Raise it if text is hard to read |
+| Wallpaper: blur | CSS length. `0px` for sharp, `8px` default, `20px` is very soft |
+| Wallpaper: darken | `0` = the image as is, `1` = black, `0.35` default. Raise it if text is hard to read |
 | Address bar: popup width | CSS length or percentage: `44rem`, `720px`, `60%` |
-| Bookmarks: wrap | While a second row exists, the sidebar (single toolbar + compact mode) starts one row too high and its top sits under the bookmarks — CSS can't measure the bar. With icon-only bookmarks a row holds dozens, so this rarely comes up |
+| Bookmarks bar: wrap | While a second row exists, the sidebar (single toolbar + compact mode) starts one row too high and its top sits under the bookmarks — CSS can't measure the bar. With icon-only bookmarks a row holds dozens, so this rarely comes up |
+
+The bookmarks bar, icons only until you hover one:
+
+![The bookmarks bar with one bookmark's title slid out on hover](https://raw.githubusercontent.com/ps-margin/livery/main/docs/bookmarks-hover.png)
 
 ## Context menu: minimal
 
@@ -170,5 +194,9 @@ commits with.
 
 ## Changelog
 
+- **1.2.0** — sidebar: docked on the empty tab and while the bookmarks panel is open. The
+  floating sidebar and toolbar now show the slice of the wallpaper they cover, not the middle
+  of it. Tint redrawn as Zen's three-colour gradient; blur and darken defaults lowered
+  (`8px`, `0.35`). The two toolbar switches now also work in the multiple-toolbars layout.
 - **1.1.0** — context menu: minimal (off by default).
 - **1.0.0** — first release.
