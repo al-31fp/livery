@@ -73,5 +73,11 @@
         "label": "Toolbar: sidebar starts below it while it is showing (single toolbar + compact mode only)",
         "type": "checkbox",
         "defaultValue": true
+    },
+    {
+        "property": "livery.contextmenu.minimal",
+        "label": "Context menu: minimal - hide everything on the page menu except a daily-use set (see readme)",
+        "type": "checkbox",
+        "defaultValue": false
     }
 ]

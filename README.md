@@ -20,6 +20,7 @@ A livery is an aircraft's paint scheme. This one is yours.
 | **Address bar** — the floating popup is narrower (`44rem`) | on |
 | **Toolbar** — stays visible while the tab is empty *(single toolbar + compact mode only)* | on |
 | **Toolbar** — the sidebar starts below it while it is showing, so no bookmark is hidden *(single toolbar + compact mode only)* | on |
+| **Context menu** — the page right-click menu cut down to a daily-use set (list below) | **off** |
 
 Icons only, until you hover one:
 
@@ -127,6 +128,25 @@ First match wins:
 | Address bar: popup width | CSS length or percentage: `44rem`, `720px`, `60%` |
 | Bookmarks: wrap | While a second row exists, the sidebar (single toolbar + compact mode) starts one row too high and its top sits under the bookmarks — CSS can't measure the bar. With icon-only bookmarks a row holds dozens, so this rarely comes up |
 
+## Context menu: minimal
+
+Off by default because it is one person's list. Zen 1.22's page menu has 122 entries; with
+this on, right-clicking a page, link, image, video or text field shows only:
+
+| Where | What stays |
+| --- | --- |
+| top row | Back · Forward · Reload · Bookmark (Zen's own icon row, untouched) |
+| link | Open Link in New Container Tab / Open in Container ▸ · Open Link in Split View · Open Link in Smart Window · Copy Link |
+| image / video | Open Image in New Tab · Save Video As · Save Audio As · Take Snapshot |
+| selection | Search *engine* for "…" · Copy Clean Link to Highlight |
+| text field | Undo · Redo · Cut · Copy · Paste · Delete · Select All |
+| developer | View Page Source · Inspect |
+
+Everything else — open in new tab/window/private window, bookmark link, save/copy image,
+email, send to device, translate, ask AI, print, screenshot, spelling, playback speed, frames,
+saved logins — is hidden while the switch is on. Keyboard shortcuts are unaffected. Tab and
+sidebar right-click menus are not touched.
+
 ## Notes
 
 - Livery targets Zen 1.22. Zen renames things between releases; if a tweak stops working,
@@ -150,4 +170,5 @@ commits with.
 
 ## Changelog
 
+- **1.1.0** — context menu: minimal (off by default).
 - **1.0.0** — first release.
