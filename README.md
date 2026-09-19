@@ -1,6 +1,6 @@
 # Livery
 
-![Livery on Zen: a blurred F-14 wallpaper behind the sidebar and bookmarks bar](https://raw.githubusercontent.com/ps-margin/livery/main/image.png)
+![Livery on Zen: a blurred F-14 wallpaper behind the sidebar and bookmarks bar](https://raw.githubusercontent.com/al-31fp/livery/main/image.png)
 
 Your wallpaper as Zen's window background, softly blurred and tinted in its own colours — plus
 a few small refinements to the bookmarks bar, the address bar and the compact-mode sidebar
@@ -150,7 +150,7 @@ own colours and only leans toward the palette at the corners.
 
 The bookmarks bar, icons only until you hover one:
 
-![The bookmarks bar with one bookmark's title slid out on hover](https://raw.githubusercontent.com/ps-margin/livery/main/docs/bookmarks-hover.png)
+![The bookmarks bar with one bookmark's title slid out on hover](https://raw.githubusercontent.com/al-31fp/livery/main/docs/bookmarks-hover.png)
 
 ## Context menu: minimal
 
@@ -181,7 +181,7 @@ sidebar right-click menus are not touched.
 
 ## Contact
 
-Bugs, wrong claims, feature requests: open an issue here, or email **ps-margin@pm.me**.
+Bugs, wrong claims, feature requests: open an issue here, or email **al-31fp@pm.me**.
 
 ## Credits
 
